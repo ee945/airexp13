@@ -1,0 +1,137 @@
+body {
+    align: center;
+}
+
+/*airchina*/
+.tableE {
+    margin:20px;
+    border-left:1px solid #E4E4E4;
+    border-top:1px solid #E4E4E4;
+    width:918px;
+    table-layout:auto;
+    border-collapse:collapse;
+    font-size:12px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+.tableE td,.tableE th {
+    border-bottom:1px solid #E4E4E4;
+    border-right:1px solid #E4E4E4;
+    padding:6px 10px;
+}
+.tableEth {
+    background-color:#F4F4F4;
+}
+#tbcargostatus th,#tbcargostatus tbody tr td {
+    text-align:center;
+}
+.ismtrbg {
+    background-color:#DCF3F3;
+}
+#tbtrackingmaintitle,#tbtrackingmaintitle td {
+    border:none;
+}
+#tbtrackingmaintitle {
+    margin-bottom:-20px;
+    border-bottom:1px solid #DDDDDD;
+}
+#tbtrackingmaintitle tbody tr td {
+    font-weight:bold;
+    font-size:16px;
+    color:#686868;
+}
+#tableCargo {
+    border:none;
+    margin-top:25px;
+    margin-bottom:6px;
+}
+#tableCargo td {
+    border:none;
+}
+#tableCargo td div {
+    display:inline;
+    float:left;
+}
+#tableCargo .weight {
+    font-weight:bold;
+    width:90px;
+    text-align:center;
+    color:#686868;
+}
+#tableCargo .pcs {
+    font-weight:bold;
+    width:45px;
+    text-align:center;
+    color:#686868;
+}
+#tableCargo .curCargoStatus {
+    font-weight:bold;
+    font-size:17px;
+    color:#EC892A;
+}
+
+/*ce-air*/
+table {
+ font-family: Arial,Verdana;
+ font-size: 12px;
+ line-height:16px
+}
+#result {
+    background-color:#FCFCFC
+}
+
+/*maskargo*/
+.table-content {
+    width:auto!important;
+}
+
+/*UPS*/
+.brownbold {
+    color: #630;
+    font-weight: bold
+}
+
+.pi-h4 {
+    font-weight: bold
+}
+
+.pi-mA2-c,.pi-r1-rwo {
+    background-color: #fff
+}
+
+.pi-mA2-c-t-spc,.pi-mA2-c-b-spc {
+    background-color: #fff;
+    padding-bottom: 4px;
+    padding-top: 5px
+}
+
+.pi-mA2-t {
+    background-color: #963
+}
+
+.pi-m-pad {
+    padding-left: 10px;
+    padding-right: 10px
+}
+
+.pi-m-txt-title {
+    font-weight: bold;
+    color: #fff;
+    padding: 4px 10px
+}
+
+.pi-r1-t {
+    background-color: #ccc;
+    font-weight: bold
+}
+
+.pi-r1-line {
+    background-image: url(/img/1_ffffff.gif);
+    background-repeat: repeat-y;
+    vertical-align: top;
+    padding: 5px 10px 5px 11px
+}
+
+.pi-mA2-line,.pi-r1-rwe,.pi-r1-b {
+    background-color: #ccc
+}
+
