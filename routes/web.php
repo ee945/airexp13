@@ -14,6 +14,8 @@ use App\Http\Controllers\PrintController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\TrackController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\EnsureAdmin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -112,11 +114,6 @@ Route::middleware('auth')->group(function () {
     Route::get('contact/del/{id}', [ContactController::class, 'delete'])->name('contact_del');
 
     // =================================================================
-    // 待迁移模块（占位，沿用原路由名，保证导航可用）
-    // =================================================================
-    $todo = fn (string $module) => fn () => view('default.pending', ['module' => $module]);
-
-    // =================================================================
     // 进仓
     // =================================================================
     Route::any('jincang', fn () => redirect()->route('jincang_list'));
@@ -147,11 +144,6 @@ Route::middleware('auth')->group(function () {
     Route::post('hawb/print/{hawb}', [HawbController::class, 'hawbSavePrint']);
 
     // =================================================================
-    // 待迁移模块（占位，沿用原路由名，保证导航可用）
-    // =================================================================
-    $todo = fn (string $module) => fn () => view('default.pending', ['module' => $module]);
-
-    // =================================================================
     // 总单
     // =================================================================
     Route::any('mawb', fn () => redirect()->route('mawb_list'));
@@ -174,13 +166,32 @@ Route::middleware('auth')->group(function () {
     Route::get('print/hawb/{hawb}', [PrintController::class, 'printHawb'])->name('print_hawb');
     Route::get('print/mawb/{mawb}', [PrintController::class, 'printMawb'])->name('print_mawb');
 
-    // 报表：原项目 ReportController 只有构造函数，三个路由指向不存在的方法，
-    // 访问即 500。这里保留入口并给出说明，待确认格式后再实现。
-    Route::any('report/{any?}', fn ($any = null) => view('default.pending', [
-        'module' => '报表（原系统未实现）',
-    ]))->where('any', '.*');
+    // =================================================================
+    // 用户管理（原系统未实现，按 users 表补齐）
+    // =================================================================
+    Route::middleware(EnsureAdmin::class)->group(function () {
+        Route::get('user/list', [UserController::class, 'lists'])->name('user_list');
+        Route::get('user/add', [UserController::class, 'add'])->name('user_add');
+        Route::post('user/add', [UserController::class, 'create'])->name('user_create');
+        Route::get('user/view/{name}', [UserController::class, 'show'])->name('user_view');
+        Route::post('user/view/{name}', [UserController::class, 'update'])->name('user_update');
+        Route::get('user/status/{name}', [UserController::class, 'status'])->name('user_status');
+        Route::post('user/reset/{name}', [UserController::class, 'reset'])->name('user_reset');
 
-    Route::any('user/{any?}', $todo('用户管理'))->where('any', '.*');
+        // 兼容原站的两条表单式路由（POST user/edit、POST user/del）
+        Route::post('user/edit', [UserController::class, 'edit'])->name('user_edit');
+        Route::post('user/del', [UserController::class, 'del'])->name('user_del');
+    });
+
+    // -----------------------------------------------------------------
+    // 报表（/report/*）、总单货量（/stats/mawb）、统计首页（/stats）：
+    // 2026-10-29 按需求**暂时取消入口**，不再保留占位页，访问即 404。
+    // 原因：原系统这三处本身就没有实现（ReportController 只有构造函数，
+    // 三条 report/* 路由指向不存在的方法；stats 与 stats/mawb 只是各 echo
+    // 一行文字），没有可参照的逻辑或页面。
+    // 需要恢复时不要退回占位页，直接按 users 表的做法补真实控制器，并注意
+    // mawbs 表只到 2016 年，总单维度统计要按 mawb 对 hawbs 分组。
+    // -----------------------------------------------------------------
 
     // =================================================================
     // 货物追踪
@@ -192,9 +203,7 @@ Route::middleware('auth')->group(function () {
     Route::get('track/flight/{mawb}', [TrackController::class, 'flight'])->name('track_flight');
 
     // =================================================================
-    // 统计
+    // 统计（只保留分单货量；stats 首页与 stats/mawb 已暂时取消，见上方说明）
     // =================================================================
-    Route::get('stats', [StatsController::class, 'index'])->name('stats_index');
     Route::any('stats/hawb', [StatsController::class, 'hawbQty'])->name('stats_hawb');
-    Route::get('stats/mawb', [StatsController::class, 'mawbQty'])->name('stats_mawb');
 });

@@ -41,7 +41,7 @@ class MawbTest extends TestCase
             'depar' => 'SHANGHAI',
             'shipper' => "TEST SHIPPER\nTEST ADDRESS",
             'consignee' => "TEST CONSIGNEE\nTEST ADDRESS",
-            'agentabbr' => 'SYIL/SHA',
+            'agentabbr' => 'TESTA/SHA',
             'agentcode' => '1234567',
             'agentaccount' => 'ACC001',
             'carrier' => 'MU',
@@ -67,7 +67,7 @@ class MawbTest extends TestCase
             'other' => '70.00',
             'amount' => '380.00',
             'cgodescp' => 'CONSOL CARGO',
-            'signature' => 'SYIL/SHA',
+            'signature' => 'TESTA/SHA',
             'atplace' => 'SHANGHAI',
             'operator' => 'TESTER',
             'opdate' => '2026-10-27',
@@ -210,7 +210,7 @@ class MawbTest extends TestCase
             // 未提交的列保持原值
             $this->assertSame('TEST AGENT', $row->oversea);
             $this->assertSame('ACC001', $row->agentaccount);
-            $this->assertSame('SYIL/SHA', $row->signature);
+            $this->assertSame('TESTA/SHA', $row->signature);
         } finally {
             DB::rollBack();
         }

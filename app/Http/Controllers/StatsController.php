@@ -9,24 +9,15 @@ use Illuminate\Support\Facades\DB;
 /**
  * 货量统计。
  *
- * 对照原项目 app/Http/Controllers/StatsController.php。
+ * 对照原项目 app/Http/Controllers/StatsController.php，只有 hawbQty 是真实实现。
  *
- * 原项目只有 hawbQty 是真实实现；index() 与 mawbQty() 直接 echo 一段占位
- * 字符串（"quantity stats" / "mawb quantity stats"），这里把它们渲染成
- * 统一的"模块待建"页面，行为等价、界面一致。
+ * 原项目的 index()（统计首页）与 mawbQty()（总单货量）只是各 echo 一行文字
+ * （"quantity stats" / "mawb quantity stats"），没有逻辑也没有页面。
+ * 这两块 2026-10-29 按需求暂时取消入口（路由一并移除，访问即 404），
+ * 需要时再按真实口径补，不要退回占位页。
  */
 class StatsController extends Controller
 {
-    public function index()
-    {
-        return view('default.pending', ['module' => '货量统计']);
-    }
-
-    public function mawbQty()
-    {
-        return view('default.pending', ['module' => '总单货量统计']);
-    }
-
     public function hawbQty(Request $request)
     {
         $title = '分单货量统计';

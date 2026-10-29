@@ -67,10 +67,19 @@ class StatsTrackTest extends TestCase
             ->assertSee('分单货量统计');
     }
 
-    public function test_stats_index_and_mawb_are_placeholder_pages(): void
+    /**
+     * 统计首页（/stats）与总单货量（/stats/mawb）已暂时取消入口。
+     *
+     * 原系统这两处各只有一行 echo，没有可参照的逻辑；2026-10-29 按需求
+     * 直接下线，路由一并移除，访问应当是 404 而不是残留的占位页。
+     */
+    public function test_stats_index_and_mawb_are_offline(): void
     {
-        $this->get('/stats')->assertOk()->assertSee('货量统计');
-        $this->get('/stats/mawb')->assertOk()->assertSee('总单货量统计');
+        $this->get('/stats')->assertNotFound();
+        $this->get('/stats/mawb')->assertNotFound();
+
+        // 分单货量照旧可用
+        $this->get('/stats/hawb')->assertOk()->assertSee('分单货量统计');
     }
 
     public function test_track_index_lists_four_flight_days(): void
@@ -163,11 +172,16 @@ class StatsTrackTest extends TestCase
         $this->get('/track/status/999-12345678')->assertOk()->assertSee('不符合校验规则');
     }
 
-    public function test_report_and_user_routes_stay_available(): void
+    /**
+     * 报表（/report/*）已暂时取消入口。
+     *
+     * 原项目 ReportController 是空壳，三条路由指向不存在的方法（访问即 500），
+     * 没有可参照的逻辑。2026-10-29 按需求直接下线，路由移除后应为 404。
+     */
+    public function test_report_routes_are_offline(): void
     {
-        // 原项目这两个模块控制器是空壳，路由指向不存在的方法；
-        // 这里保留入口但给出明确说明，不再 500
-        $this->get('/report/daily')->assertOk();
-        $this->get('/user/list')->assertOk();
+        $this->get('/report/daily')->assertNotFound();
+        $this->get('/report/month')->assertNotFound();
+        $this->get('/report/forward')->assertNotFound();
     }
 }

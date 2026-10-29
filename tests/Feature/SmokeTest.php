@@ -44,18 +44,15 @@ class SmokeTest extends TestCase
         $this->get('/')->assertOk()->assertSee('系统概览');
 
         // 已迁移模块（只列能稳定返回 200 的入口）
+        // 报表 / 统计首页 / 总单货量已暂时取消入口，见 StatsTrackTest
         $urls = [
             '/jincang/list', '/jincang/add',
             '/hawb/list', '/hawb/add',
             '/mawb/list',
             '/address/list', '/port/list', '/client/list', '/seller/list', '/contact/list',
+            '/user/list', '/user/add',
+            '/track', '/stats/hawb',
         ];
-
-        // 未迁移模块的占位页
-        $urls = array_merge($urls, [
-            '/report/daily',
-            '/user/list', '/track', '/stats', '/stats/hawb',
-        ]);
 
         foreach ($urls as $url) {
             $this->get($url)->assertOk();

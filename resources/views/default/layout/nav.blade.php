@@ -45,8 +45,8 @@
                 <li><a href="{{ route('seller_list') }}">销售管理</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">用户管理</li>
-                <li><a href="{{ url('user/add') }}">添加用户</a></li>
-                <li><a href="{{ url('user/list') }}">用户列表</a></li>
+                <li><a href="{{ route('user_add') }}">添加用户</a></li>
+                <li><a href="{{ route('user_list') }}">用户列表</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">系统设定</li>
                 <li><a href="#">参数设定</a></li>
@@ -65,7 +65,7 @@
                   {{ Auth::user()->nick ?: Auth::user()->name }} <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">用户设置</a></li>
+                  <li><a href="{{ route('user_view', ['name' => Auth::user()->name]) }}">用户设置</a></li>
                   <li>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">注销</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

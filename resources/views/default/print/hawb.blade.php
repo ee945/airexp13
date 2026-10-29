@@ -72,7 +72,7 @@ position:absolute;left:{{ $agent_x }}px;top:{{ $agent_y }}px;}
 </style>
 </head>
 <body>
-<div id="issued">SHANGHAI YINGHAO INT'L LOGISTICS CO.,LTD.</div>
+<div id="issued">{{ trim(explode("\n", str_replace('\n', "\n", (string) env('CONF_AGENT_ADDR', 'COMPANY NAME')))[0]) }}</div>
 <div id="mawb">{{ $hawb->mawb }}</div>
 <div id="hawb">{!! env('CONF_HAWB_PREFIX') !!}{{ $hawb->hawb }}</div>
 <div id="hawbfoot">{!! env('CONF_HAWB_PREFIX') !!}{{ $hawb->hawb }}</div>

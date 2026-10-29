@@ -40,7 +40,10 @@ class User extends Authenticatable
         return [
             'password' => 'hashed',
             'level' => 'integer',
-            'lastlogin' => 'datetime',
+            // 注意：lastlogin 故意不做 datetime 转换。
+            // 这一列是历史列，未登录过时是 '0000-00-00 00:00:00'，Carbon 会把它
+            // 解析成 -0001-11-30，写回时 mysql 直接报 1292；展示与回写一律用
+            // getRawOriginal('lastlogin') 拿原字符串。
         ];
     }
 

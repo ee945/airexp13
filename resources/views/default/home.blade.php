@@ -43,20 +43,5 @@
         </div>
     </div>
 
-    <div class="row" style="margin-top:20px">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">重构进度</div>
-                <div class="panel-body">
-                    <p>已完成：登录 / 退出 / 首页仪表盘 / 数据模型 / 主题与 Form 兼容层</p>
-                    <p>进行中：进仓、分单、总单、清单、打印、报表、数据维护、货物追踪</p>
-                    <p class="text-muted" style="margin-bottom:0">
-                        未完成的模块点击导航会进入"重构中"占位页，不影响对照原站功能。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 @endsection

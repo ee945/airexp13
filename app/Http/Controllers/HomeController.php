@@ -9,7 +9,7 @@ use App\Models\Mawb;
 class HomeController extends Controller
 {
     /**
-     * 首页仪表盘（重构进行中，先给出与原站相同的数据口径）。
+     * 首页仪表盘：给出与原站相同的数据口径。
      */
     public function index()
     {
